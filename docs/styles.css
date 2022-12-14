@@ -1,0 +1,26 @@
+body {
+  margin-left: 9em;
+  margin-right: 9em;
+}
+
+p {
+  font-size: x-large;
+}
+
+code {
+    background-color: #eee;
+    border-radius: 3px;
+    font-family: courier, monospace;
+    padding: 0 3px;
+}
+
+.smallexample {
+  background: #eee;
+  width: fit-content;
+  font-size: large;
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
