@@ -24,3 +24,17 @@ code {
   padding-bottom: 0.5em;
 }
 
+.titles-list{
+  margin-top: 6%;
+  margin-left: 30%;
+  margin-right: 30%;
+}
+
+a {
+  color: #2a7ae2;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #205eb0;
+}
