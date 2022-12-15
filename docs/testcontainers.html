@@ -28,7 +28,7 @@ use rocket_db_pools::{Database, Connection};
 use sqlx;
 
 #[derive(Database)]
-#[database("test_containers")]
+#[database(&quot;test_containers&quot;)]
 pub struct Db(sqlx::PgPool);
 
 #[derive(Serialize, Deserialize)]
@@ -42,28 +42,28 @@ pub struct ApiError {
     msg: String,
 }
 
-impl From<sqlx::Error> for ApiError {
-    fn from(error: sqlx::Error) -> Self {
-        println!("Error: {}", error);
+impl From&lt;sqlx::Error&gt; for ApiError {
+    fn from(error: sqlx::Error) -&gt; Self {
+        println!(&quot;Error: {}&quot;, error);
         ApiError {
-            msg: "Something went wrong".to_string(),
+            msg: &quot;Something went wrong&quot;.to_string(),
         }
     }
 }
 
-#[get("/users")]
+#[get(&quot;/users&quot;)]
 pub async fn get_users(
-    mut db: Connection<Db>,
-) -> Result<Json<Vec<User>>, ApiError> {
-    let mut users: Vec<User> = vec![];
+    mut db: Connection&lt;Db&gt;,
+) -&gt; Result&lt;Json&lt;Vec&lt;User&gt;&gt;, ApiError&gt; {
+    let mut users: Vec&lt;User&gt; = vec![];
 
     sqlx::query!(
-        r#"SELECT
+        r#&quot;SELECT
              id,
              username
-             FROM users"#
+             FROM users&quot;#
     )
-    .fetch(&mut *db)
+    .fetch(&amp;mut *db)
     .map_ok(|r| {
         let id = r.id;
         let username = r.username;
@@ -72,18 +72,18 @@ pub async fn get_users(
             username,
         });
     })
-    .try_collect::<Vec<_>>()
+    .try_collect::&lt;Vec&lt;_&gt;&gt;()
     .await?;
 
     Ok(Json(users))
 }
 
-pub fn stage() -> AdHoc {
-    AdHoc::on_ignite("Stage", |rocket| async {
+pub fn stage() -&gt; AdHoc {
+    AdHoc::on_ignite(&quot;Stage&quot;, |rocket| async {
         rocket
             .attach(Db::init())
             .mount(
-                "/",
+                &quot;/&quot;,
                 routes![
                     get_users,
                 ],
@@ -92,7 +92,7 @@ pub fn stage() -> AdHoc {
 }
 
 #[launch]
-fn rocket() -> _ {
+fn rocket() -&gt; _ {
     rocket::build().attach(stage())
 }</pre>
 
@@ -100,37 +100,36 @@ fn rocket() -> _ {
 
     <pre class="smallexample">
 [dependencies]
-rocket = { version = "0.5.0-rc.2", features = ["json", "uuid"] }
-rocket_db_pools = { version = "0.1.0-rc.2", features = ["sqlx_postgres"] }
-sqlx = { version = "0.6.2", features = ["runtime-tokio-rustls", "postgres", "uuid", "offline"] }
-serde = { version = "1.0.132", features = ["derive"] }
-serde_json = "1.0.59"
-postgres = { version = "0.19.4" }
-testcontainers = { version = "0.14.0" }
+rocket = { version = &quot;0.5.0-rc.2&quot;, features = [&quot;json&quot;, &quot;uuid&quot;] }
+rocket_db_pools = { version = &quot;0.1.0-rc.2&quot;, features = [&quot;sqlx_postgres&quot;] }
+sqlx = { version = &quot;0.6.2&quot;, features = [&quot;runtime-tokio-rustls&quot;, &quot;postgres&quot;, &quot;uuid&quot;, &quot;offline&quot;] }
+serde = { version = &quot;1.0.132&quot;, features = [&quot;derive&quot;] }
+serde_json = &quot;1.0.59&quot;
+postgres = { version = &quot;0.19.4&quot; }
 
 [dependencies.rocket_sync_db_pools]
-version = "0.1.0-rc.2"
+version = &quot;0.1.0-rc.2&quot;
 
 [patch.crates-io]
-rocket = { git = "https://github.com/SergioBenitez/Rocket", rev="6c3d35e"}
-rocket_db_pools= { git = "https://github.com/SergioBenitez/Rocket", rev="6c3d35e" }</pre>
+rocket = { git = &quot;https://github.com/SergioBenitez/Rocket&quot;, rev=&quot;6c3d35e&quot;}
+rocket_db_pools= { git = &quot;https://github.com/SergioBenitez/Rocket&quot;, rev=&quot;6c3d35e&quot; }</pre>
 
     <p>Let's go quickly over the code in <code>main.rs</code>.</p>
 
     <pre class="smallexample">
-#[get("/users")]
+#[get(&quot;/users&quot;)]
 pub async fn get_users(
-    mut db: Connection<Db>,
-) -> Result<Json<Vec<User>>, ApiError> {
-    let mut users: Vec<User> = vec![];
+    mut db: Connection&lt;Db&gt;,
+) -&gt; Result&lt;Json&lt;Vec&lt;User&gt;&gt;, ApiError&gt; {
+    let mut users: Vec&lt;User&gt; = vec![];
 
     sqlx::query!(
-        r#"SELECT
+        r#&quot;SELECT
              id,
              username
-             FROM users"#
+             FROM users&quot;#
     )
-    .fetch(&mut *db)
+    .fetch(&amp;mut *db)
     .map_ok(|r| {
         let id = r.id;
         let username = r.username;
@@ -139,7 +138,7 @@ pub async fn get_users(
             username,
         });
     })
-    .try_collect::<Vec<_>>()
+    .try_collect::&lt;Vec&lt;_&gt;&gt;()
     .await?;
 
     Ok(Json(users))
@@ -160,11 +159,11 @@ pub struct ApiError {
     msg: String,
 }
 
-impl From<sqlx::Error> for ApiError {
-    fn from(error: sqlx::Error) -> Self {
-        println!("Error: {}", error);
+impl From&lt;sqlx::Error&gt; for ApiError {
+    fn from(error: sqlx::Error) -&gt; Self {
+        println!(&quot;Error: {}&quot;, error);
         ApiError {
-            msg: "Something went wrong".to_string(),
+            msg: &quot;Something went wrong&quot;.to_string(),
         }
     }
 }</pre>
@@ -173,12 +172,12 @@ impl From<sqlx::Error> for ApiError {
 
     Then we <i>attach</i> the database and <i>mount</i> the endpoint and start rocket in <code>fn rocket(){}</code>. If you are not familiar with Rocket and want to know more about it, check the official website: <a href="https://rocket.rs/v0.5-rc/guide/getting-started">https://rocket.rs/v0.5-rc/guide/getting-started</a></p>
     <pre class="smallexample">
-pub fn stage() -> AdHoc {
-    AdHoc::on_ignite("Stage", |rocket| async {
+pub fn stage() -&gt; AdHoc {
+    AdHoc::on_ignite(&quot;Stage&quot;, |rocket| async {
         rocket
             .attach(Db::init())
             .mount(
-                "/",
+                &quot;/&quot;,
                 routes![
                     get_users,
                 ],
@@ -187,7 +186,7 @@ pub fn stage() -> AdHoc {
 }
 
 #[launch]
-fn rocket() -> _ {
+fn rocket() -&gt; _ {
     rocket::build().attach(stage())
 }</pre>
 
@@ -206,15 +205,15 @@ CREATE TABLE users (id uuid DEFAULT gen_random_uuid() PRIMARY KEY, username TEXT
 
     <p>Let's create an <code>.env</code> file and set <code>DATABASE_URL</code> for SQLX.</p>
     <pre class="smallexample">
-// .env
+# .env
 DATABASE_URL=postgres://postgres:postgres@localhost/test_containers</pre>
 
     <p>We also need to point Rocket to our database and for that we'll create a <code>Rocket.toml</code> file.</p>
 
     <pre class="smallexample">
-// Rocket.toml
+# Rocket.toml
 [global.databases]
-test_containers = { url = "postgres://postgres:postgres@localhost/test_containers", connect_timeout = 20}</pre>
+test_containers = { url = &quot;postgres://postgres:postgres@localhost/test_containers&quot;, connect_timeout = 20}</pre>
 
     <p>Now let's build our project.</p>
 
@@ -229,7 +228,7 @@ test_containers = { url = "postgres://postgres:postgres@localhost/test_container
     <pre class="smallexample">
 [dependencies]
 // ...
-testcontainers = { version = "0.14.0" }</pre>
+testcontainers = { version = &quot;0.14.0&quot; }</pre>
 
     <p>Let's create a test function to test our endpoint.</p>
 
@@ -237,6 +236,13 @@ testcontainers = { version = "0.14.0" }</pre>
 // main.rs
 #[cfg(test)]
 mod test {
+    use super::rocket;
+    use rocket::http::{ContentType, Status};
+    use rocket::local::blocking::Client;
+    use std::env;
+    use testcontainers::{clients, images};
+    use crate::User;
+
     #[test]
     fn get_users() {
     }
@@ -257,12 +263,12 @@ fn get_users() {
     <pre class="smallexample">
 fn get_users() {
     // ...
-    let connection_string = &format!(
-        "postgres://postgres:postgres@127.0.0.1:{}/postgres",
+    let connection_string = &amp;format!(
+        &quot;postgres://postgres:postgres@127.0.0.1:{}/postgres&quot;,
         postgres_node.get_host_port_ipv4(5432)
     );
     let mut conn = postgres::Client::connect(connection_string, postgres::NoTls).unwrap();
-    conn.query("CREATE DATABASE test_containers;", &[]).unwrap();
+    conn.query(&quot;CREATE DATABASE test_containers;&quot;, &amp;[]).unwrap();
 }</pre>
 
     <p>Next we create a table <code>users</code>. We need the extension <code>pgcrypto</code> to generate a random uuid.</p>
@@ -270,14 +276,14 @@ fn get_users() {
     <pre class="smallexample">
 fn get_users() {
     // ...
-    let connection_string = &format!(
-        "postgres://postgres:postgres@127.0.0.1:{}/test_containers",
+    let connection_string = &amp;format!(
+        &quot;postgres://postgres:postgres@127.0.0.1:{}/test_containers&quot;,
         postgres_node.get_host_port_ipv4(5432)
     );
     let mut conn = postgres::Client::connect(connection_string, postgres::NoTls).unwrap();
-    conn.query("CREATE EXTENSION pgcrypto;", &[]).unwrap();
+    conn.query(&quot;CREATE EXTENSION pgcrypto;&quot;, &amp;[]).unwrap();
 
-    conn.query("CREATE TABLE users(id uuid DEFAULT gen_random_uuid() PRIMARY KEY, username TEXT NOT NULL);", &[]).unwrap();
+    conn.query(&quot;CREATE TABLE users(id uuid DEFAULT gen_random_uuid() PRIMARY KEY, username TEXT NOT NULL);&quot;, &amp;[]).unwrap();
 }</pre>
 
     <p>We also have to set <code>ROCKET_DATABASES</code> in the test function since the port is randomly generated every time we spin up a docker container with <code>testcontainers</code>.</p>
@@ -286,9 +292,9 @@ fn get_users() {
 fn get_users() {
     // ...
     env::set_var(
-        "ROCKET_DATABASES",
+        &quot;ROCKET_DATABASES&quot;,
         format!(
-            "{{test_containers={{url=postgres://postgres:postgres@localhost:{}/test_containers}}}}",
+            &quot;{{test_containers={{url=postgres://postgres:postgres@localhost:{}/test_containers}}}}&quot;,
             postgres_node.get_host_port_ipv4(5432))
     );
 }</pre>
@@ -298,7 +304,7 @@ fn get_users() {
     <pre class="smallexample">
 fn get_users() {
     // ...
-    conn.query("INSERT INTO users (username) VALUES ('bob'),('alice'),('john');", &[]).unwrap();
+    conn.query(&quot;INSERT INTO users (username) VALUES (&#39bob&#39),(&#39alice&#39),(&#39john&#39);&quot;, &amp;[]).unwrap();
     conn.close().unwrap();
 }</pre>
 
@@ -308,18 +314,26 @@ fn get_users() {
 fn get_users() {
     // ...
     let client = Client::tracked(rocket()).unwrap();
-    let req = client.get("/users");
+    let req = client.get(&quot;/users&quot;);
     let response = req.dispatch();
 
     assert_eq!(response.status(), Status::Ok);
     assert_eq!(response.content_type(), Some(ContentType::JSON));
 
-    let users = response.into_json::<Vec<User>>().unwrap();
+    let users = response.into_json::&lt;Vec&lt;User&gt;&gt;().unwrap();
     assert_eq!(users.len(), 3);
-    assert_eq!(users[0].username, "bob");
-    assert_eq!(users[1].username, "alice");
-    assert_eq!(users[2].username, "john");
+    assert_eq!(users[0].username, &quot;bob&quot;);
+    assert_eq!(users[1].username, &quot;alice&quot;);
+    assert_eq!(users[2].username, &quot;john&quot;);
 }</pre>
+    <p>We're done. Run the test.</p>
+    <pre class="smallexample">cargo test</pre>
+    <p>You should see the following outpout.</p>
+    <pre class="smallexample">
+running 1 test
+test test::get_users ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.51s</pre>
   </body>
 </html>
 
