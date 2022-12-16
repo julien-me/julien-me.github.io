@@ -1,3 +1,4 @@
+/* general */
 body {
   margin-left: 9em;
   margin-right: 9em;
@@ -7,6 +8,11 @@ p {
   font-size: x-large;
 }
 
+a {
+  text-decoration: none;
+}
+
+/* code example */
 code {
     background-color: #eee;
     border-radius: 3px;
@@ -24,17 +30,63 @@ code {
   padding-bottom: 0.5em;
 }
 
+/* title */
 .titles-list{
   margin-top: 6%;
   margin-left: 30%;
   margin-right: 30%;
 }
 
-a {
+.titles-list a {
   color: #2a7ae2;
-  text-decoration: none;
 }
 
-a:hover {
+.title-link:hover {
   color: #205eb0;
+  text-decoration: underline;
+}
+
+.pub-date {
+  color: gray;
+  font-size: 0.9em;
+}
+
+/* navigation bar */
+.navbar {
+  display: grid;
+  grid-template-columns: 1fr 1fr 8fr;
+}
+
+.navbar-component {
+  font-size: 1.2em;
+}
+
+.navbar-component a {
+  color: gray;
+}
+
+.navbar-component a:hover {
+  text-decoration: underline;
+  color: #5e5d5d;
+}
+
+/* article */
+.article-link {
+  color: #2a7ae2;
+}
+
+.article-link:hover {
+  color: #205eb0;
+  text-decoration: underline;
+}
+
+/* contact */
+.contact {
+  margin-top: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  color: #5e5d5d;
+  font-size: 1.5em;
 }

@@ -8,7 +8,7 @@
   <body>
     <h1>Test a Rocket application with testcontainers</h1>
     <p>
-    Last updated December 2022. <br> <br> In my latest experiment with Rust I discovered the package <a href="https://docs.rs/testcontainers/latest/testcontainers/index.html"><code>testcontainers</code></a>. It originally comes from the Java ecosystem but now is supported for several languages, and Rust is one of them. It makes it easy to spin up a Docker container in your tests whether you need a PostgreSQL database, a Redis instance or any of the Docker images provided (see the full list here: <a href="https://docs.rs/testcontainers/latest/testcontainers/images/index.html">https://docs.rs/testcontainers/latest/testcontainers/images/index.html</a>). In this article I'll show you how you can use <code>testcontainers</code> to test a web application written in Rust with Rocket, SQLX and PostgreSQL. <br> <br> Here is what we will do. First we'll create a Rocket application with a single endpoint to retrieve a list of all users from a database. Then we'll use testcontainers to test it.
+    Last updated December 2022. <br> <br> In my latest experiment with Rust I discovered the package <a class="article-link" href="https://docs.rs/testcontainers/latest/testcontainers/index.html"><code>testcontainers</code></a>. It originally comes from the Java ecosystem but now is supported for several languages, and Rust is one of them. It makes it easy to spin up a Docker container in your tests whether you need a PostgreSQL database, a Redis instance or any of the Docker images provided (see the full list here: <a class="article-link" href="https://docs.rs/testcontainers/latest/testcontainers/images/index.html">https://docs.rs/testcontainers/latest/testcontainers/images/index.html</a>). In this article I'll show you how you can use <code>testcontainers</code> to test a web application written in Rust with Rocket, SQLX and PostgreSQL. <br> <br> Here is what we will do. First we'll create a Rocket application with a single endpoint to retrieve a list of all users from a database. Then we'll use testcontainers to test it.
     For the sake of simplicity I'm going to keep everything nicely fit into a single <code>main.rs</code>. <br><br> We start by creating a new project. I'll call it <i>testcontainers_example</i>.</p>
 
     <pre class="smallexample">cargo new testcontainers_example</pre>
@@ -170,7 +170,7 @@ impl From&lt;sqlx::Error&gt; for ApiError {
 
     <p>It is a simple <code>Struct</code> containing a message. We need to implement it for every error we return. Our endpoint returns an <code>sqlx::Error</code> so we implement it too. To keep it simple we return <code>Something went wrong</code>.
 
-    Then we <i>attach</i> the database and <i>mount</i> the endpoint and start rocket in <code>fn rocket(){}</code>. If you are not familiar with Rocket and want to know more about it, check the official website: <a href="https://rocket.rs/v0.5-rc/guide/getting-started">https://rocket.rs/v0.5-rc/guide/getting-started</a></p>
+    Then we <i>attach</i> the database and <i>mount</i> the endpoint and start rocket in <code>fn rocket(){}</code>. If you are not familiar with Rocket and want to know more about it, check the official website: <a class="article-link" href="https://rocket.rs/v0.5-rc/guide/getting-started">https://rocket.rs/v0.5-rc/guide/getting-started</a></p>
     <pre class="smallexample">
 pub fn stage() -&gt; AdHoc {
     AdHoc::on_ignite(&quot;Stage&quot;, |rocket| async {
@@ -326,7 +326,7 @@ fn get_users() {
     assert_eq!(users[1].username, &quot;alice&quot;);
     assert_eq!(users[2].username, &quot;john&quot;);
 }</pre>
-    <p>We're done. Run the test.</p>
+    <p>Finally run the test.</p>
     <pre class="smallexample">cargo test</pre>
     <p>You should see the following outpout.</p>
     <pre class="smallexample">
