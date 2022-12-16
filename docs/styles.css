@@ -1,9 +1,4 @@
 /* general */
-body {
-  margin-left: 5%;
-  margin-right: 25%;
-}
-
 p {
   font-size: x-large;
 }
@@ -31,6 +26,11 @@ code {
 }
 
 /* title */
+.main-page {
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
 .titles-list{
   margin-top: 6%;
   margin-left: 30%;
@@ -53,6 +53,8 @@ code {
 
 /* navigation bar */
 .navbar {
+  margin-left: 5%;
+  margin-right: 5%;
   display: grid;
   grid-template-columns: 1fr 1fr 8fr;
 }
@@ -71,6 +73,11 @@ code {
 }
 
 /* article */
+.article {
+  margin-left: 5%;
+  margin-right: 25%;
+}
+
 .article-link {
   color: #2a7ae2;
 }
@@ -82,11 +89,10 @@ code {
 
 /* contact */
 .contact {
-  margin-top: 25%;
+  margin-top: 20%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-items: center;
   color: #5e5d5d;
   font-size: 1.5em;
 }

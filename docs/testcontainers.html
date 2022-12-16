@@ -6,6 +6,7 @@
     <link href="styles.css" rel="stylesheet">
   </head>
   <body>
+    <div class="article">
     <h1>Test a Rocket application with testcontainers</h1>
     <p>
     Last updated December 2022. <br> <br> In my latest experiment with Rust I discovered the package <a class="article-link" href="https://docs.rs/testcontainers/latest/testcontainers/index.html"><code>testcontainers</code></a>. It originally comes from the Java ecosystem but now is supported for several languages, and Rust is one of them. It makes it easy to spin up a Docker container in your tests whether you need a PostgreSQL database, a Redis instance or any of the Docker images provided (see the full list here: <a class="article-link" href="https://docs.rs/testcontainers/latest/testcontainers/images/index.html">https://docs.rs/testcontainers/latest/testcontainers/images/index.html</a>). In this article I'll show you how you can use <code>testcontainers</code> to test a web application written in Rust with Rocket, SQLX and PostgreSQL. <br> <br> Here is what we will do. First we'll create a Rocket application with a single endpoint to retrieve a list of all users from a database. Then we'll use testcontainers to test it.
@@ -334,6 +335,7 @@ running 1 test
 test test::get_users ... ok
 
 test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.51s</pre>
+    </div>
   </body>
 </html>
 
