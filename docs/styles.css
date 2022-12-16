@@ -1,7 +1,7 @@
 /* general */
 body {
-  margin-left: 9em;
-  margin-right: 9em;
+  margin-left: 5%;
+  margin-right: 32%;
 }
 
 p {
@@ -22,8 +22,6 @@ code {
 
 .smallexample {
   background: #eee;
-  width: 90%;
-  max-width: 90%;
   overflow: scroll;
   font-size: large;
   padding-left: 1em;
